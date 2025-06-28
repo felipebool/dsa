@@ -1,254 +1,255 @@
 package heap_test
 
 import (
+	"github.com/felipebool/dsa/ds/element"
 	"testing"
 
 	"github.com/felipebool/dsa/ds/heap"
 	"github.com/stretchr/testify/assert"
 )
 
-type element struct {
+type item struct {
 	key int
 }
 
-func (e element) GetKey() int {
+func (e item) GetKey() int {
 	return e.key
 }
 
 func TestHeap(t *testing.T) {
 	testCases := map[string]struct {
-		elements            []heap.Element
-		elementsToPop       []heap.Element
+		elements            []element.Getter
+		elementsToPop       []element.Getter
 		compareType         heap.CompareType
-		expectedPeekElement heap.Element
+		expectedPeekElement element.Getter
 		expectedString      string
 	}{
 		"max heap random elements": {
-			elements: []heap.Element{
-				element{key: 17},
-				element{key: 2},
-				element{key: 15},
-				element{key: 23},
-				element{key: 4},
-				element{key: 9},
-				element{key: 0},
+			elements: []element.Getter{
+				item{key: 17},
+				item{key: 2},
+				item{key: 15},
+				item{key: 23},
+				item{key: 4},
+				item{key: 9},
+				item{key: 0},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elementsToPop: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
 			compareType:         heap.MaxHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23] -> [17] -> [15] -> [2] -> [4] -> [9] -> [0]",
 		},
 		"max heap ascending elements": {
-			elements: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
+			elements: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elementsToPop: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
 			compareType:         heap.MaxHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23] -> [9] -> [17] -> [0] -> [4] -> [2] -> [15]",
 		},
 		"max heap descending elements": {
-			elements: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elements: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elementsToPop: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
 			compareType:         heap.MaxHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23] -> [17] -> [15] -> [9] -> [4] -> [2] -> [0]",
 		},
 		"max heap no elements": {
-			elements:            []heap.Element{},
-			elementsToPop:       []heap.Element{},
+			elements:            []element.Getter{},
+			elementsToPop:       []element.Getter{},
 			compareType:         heap.MaxHeap,
 			expectedPeekElement: nil,
 			expectedString:      "[]",
 		},
 		"max heap duplicated elements": {
-			elements: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 2},
-				element{key: 15},
-				element{key: 23},
-				element{key: 4},
-				element{key: 9},
-				element{key: 0},
-				element{key: 15},
+			elements: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 2},
+				item{key: 15},
+				item{key: 23},
+				item{key: 4},
+				item{key: 9},
+				item{key: 0},
+				item{key: 15},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elementsToPop: []element.Getter{
+				item{key: 23},
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
 			compareType:         heap.MaxHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23] -> [23] -> [9] -> [15] -> [17] -> [2] -> [4] -> [0] -> [15]",
 		},
 		"max heap single element": {
-			elements: []heap.Element{
-				element{key: 23},
+			elements: []element.Getter{
+				item{key: 23},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 23},
 			},
 			compareType:         heap.MaxHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23]",
 		},
 		"min heap random elements": {
-			elements: []heap.Element{
-				element{key: 17},
-				element{key: 2},
-				element{key: 15},
-				element{key: 23},
-				element{key: 4},
-				element{key: 9},
-				element{key: 0},
+			elements: []element.Getter{
+				item{key: 17},
+				item{key: 2},
+				item{key: 15},
+				item{key: 23},
+				item{key: 4},
+				item{key: 9},
+				item{key: 0},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
 			},
 			compareType:         heap.MinHeap,
-			expectedPeekElement: element{key: 0},
+			expectedPeekElement: item{key: 0},
 			expectedString:      "[0] -> [4] -> [2] -> [23] -> [17] -> [15] -> [9]",
 		},
 		"min heap ascending elements": {
-			elements: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
+			elements: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
 			},
 			compareType:         heap.MinHeap,
-			expectedPeekElement: element{key: 0},
+			expectedPeekElement: item{key: 0},
 			expectedString:      "[0] -> [2] -> [4] -> [9] -> [15] -> [17] -> [23]",
 		},
 		"min heap descending elements": {
-			elements: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 15},
-				element{key: 9},
-				element{key: 4},
-				element{key: 2},
-				element{key: 0},
+			elements: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 15},
+				item{key: 9},
+				item{key: 4},
+				item{key: 2},
+				item{key: 0},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
 			},
 			compareType:         heap.MinHeap,
-			expectedPeekElement: element{key: 0},
+			expectedPeekElement: item{key: 0},
 			expectedString:      "[0] -> [9] -> [2] -> [23] -> [15] -> [17] -> [4]",
 		},
 		"min heap no elements": {
-			elements:            []heap.Element{},
-			elementsToPop:       []heap.Element{},
+			elements:            []element.Getter{},
+			elementsToPop:       []element.Getter{},
 			compareType:         heap.MinHeap,
 			expectedPeekElement: nil,
 			expectedString:      "[]",
 		},
 		"min heap duplicated elements": {
-			elements: []heap.Element{
-				element{key: 23},
-				element{key: 17},
-				element{key: 2},
-				element{key: 15},
-				element{key: 23},
-				element{key: 4},
-				element{key: 9},
-				element{key: 0},
-				element{key: 15},
+			elements: []element.Getter{
+				item{key: 23},
+				item{key: 17},
+				item{key: 2},
+				item{key: 15},
+				item{key: 23},
+				item{key: 4},
+				item{key: 9},
+				item{key: 0},
+				item{key: 15},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 0},
-				element{key: 2},
-				element{key: 4},
-				element{key: 9},
-				element{key: 15},
-				element{key: 15},
-				element{key: 17},
-				element{key: 23},
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 0},
+				item{key: 2},
+				item{key: 4},
+				item{key: 9},
+				item{key: 15},
+				item{key: 15},
+				item{key: 17},
+				item{key: 23},
+				item{key: 23},
 			},
 			compareType:         heap.MinHeap,
-			expectedPeekElement: element{key: 0},
+			expectedPeekElement: item{key: 0},
 			expectedString:      "[0] -> [2] -> [4] -> [15] -> [23] -> [17] -> [9] -> [23] -> [15]",
 		},
 		"min heap single element": {
-			elements: []heap.Element{
-				element{key: 23},
+			elements: []element.Getter{
+				item{key: 23},
 			},
-			elementsToPop: []heap.Element{
-				element{key: 23},
+			elementsToPop: []element.Getter{
+				item{key: 23},
 			},
 			compareType:         heap.MinHeap,
-			expectedPeekElement: element{key: 23},
+			expectedPeekElement: item{key: 23},
 			expectedString:      "[23]",
 		},
 	}

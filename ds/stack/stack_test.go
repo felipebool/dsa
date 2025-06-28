@@ -9,7 +9,7 @@ import (
 )
 
 func TestStack(t *testing.T) {
-	type element struct {
+	type item struct {
 		value string
 	}
 
@@ -33,31 +33,31 @@ func TestStack(t *testing.T) {
 		},
 		"only structs": {
 			elementsToPush: []any{
-				element{value: "a"},
-				element{value: "b"},
-				element{value: "c"},
+				item{value: "a"},
+				item{value: "b"},
+				item{value: "c"},
 			},
 			elementsToPop: []any{
-				element{value: "c"},
-				element{value: "b"},
-				element{value: "a"},
+				item{value: "c"},
+				item{value: "b"},
+				item{value: "a"},
 			},
 			expectedString:      "[{value:c}] -> [{value:b}] -> [{value:a}]",
-			expectedPeekElement: element{value: "c"},
+			expectedPeekElement: item{value: "c"},
 		},
 		"mixed types": {
 			elementsToPush: []any{
 				1,
 				"b",
-				element{value: "c"},
+				item{value: "c"},
 			},
 			elementsToPop: []any{
-				element{value: "c"},
+				item{value: "c"},
 				"b",
 				1,
 			},
 			expectedString:      "[{value:c}] -> [b] -> [1]",
-			expectedPeekElement: element{value: "c"},
+			expectedPeekElement: item{value: "c"},
 		},
 	}
 
